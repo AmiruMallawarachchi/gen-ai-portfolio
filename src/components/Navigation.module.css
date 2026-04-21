@@ -1,60 +1,74 @@
-.navbar {
+.nav {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-}
-
-.container {
-  max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1.5rem 3rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.scrolled {
+  padding: 0.75rem 3rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
 }
 
-.iconAccent {
+.logo {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: 1.5rem;
+  letter-spacing: -0.05em;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.navLinks a {
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navLinks a:hover,
+.navLinks a.active {
   color: var(--accent-primary);
 }
 
-.links {
-  display: flex;
-  gap: var(--spacing-lg);
+.navLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gradient-start), var(--accent-gradient-end));
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.navLink {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  transition: all 0.2s ease;
+.navLinks a:hover::after,
+.navLinks a.active::after {
+  width: 100%;
 }
 
-.navLink:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .scrolled {
+    padding: 1rem;
+  }
+  .navCta {
+    display: none;
+  }
 }

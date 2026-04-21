@@ -1,26 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navigation from "../components/Navigation";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
-  title: "Gen AI Engineer | Portfolio",
-  description: "Senior Generative AI Engineer showcasing modern intelligence and architecture.",
+  title: "Ami | Gen AI Engineer",
+  description: "Portfolio of a Generative AI Engineer, showcasing models, autonomous agents, and intelligence architectures.",
 };
 
 export default function RootLayout({
@@ -29,12 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable}`}>
-      <body>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="grid-bg">
         <Navigation />
-        <main className="main-content">
-          {children}
-        </main>
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

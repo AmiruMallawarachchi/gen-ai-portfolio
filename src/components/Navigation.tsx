@@ -1,26 +1,56 @@
-import Link from 'next/link';
-import { Terminal, Lightbulb, PenTool, User } from 'lucide-react';
-import styles from './Navigation.module.css';
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./Navigation.module.css";
 
 export default function Navigation() {
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          <Terminal size={24} className={styles.iconAccent} />
-          <span>GenAI.dev</span>
+    <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
+      <div className={styles.logo}>
+        <Link href="/">
+          Ami<span className="gradient-text">.ai</span>
         </Link>
-        <div className={styles.links}>
-          <Link href="/" className={styles.navLink}>
-            <User size={16} /> Home
+      </div>
+      <ul className={styles.navLinks}>
+        <li>
+          <Link href="/" className={pathname === "/" ? styles.active : ""}>
+            Home
           </Link>
-          <Link href="/projects" className={styles.navLink}>
-            <Lightbulb size={16} /> Projects
+        </li>
+        <li>
+          <Link
+            href="/projects"
+            className={pathname.startsWith("/projects") ? styles.active : ""}
+          >
+            Projects
           </Link>
-          <Link href="/articles" className={styles.navLink}>
-            <PenTool size={16} /> Articles
+        </li>
+        <li>
+          <Link
+            href="/articles"
+            className={pathname.startsWith("/articles") ? styles.active : ""}
+          >
+            Articles
           </Link>
-        </div>
+        </li>
+      </ul>
+      <div className={styles.navCta}>
+        <a href="mailto:contact@example.com" className="btn-primary">
+          Hire Me
+        </a>
       </div>
     </nav>
   );
