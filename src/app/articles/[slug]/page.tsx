@@ -5,8 +5,8 @@ import { ArrowLeft, Calendar } from 'lucide-react';
 
 export const revalidate = 60;
 
-export default async function ArticleDetailPage({ params }) {
-  const { slug } = params;
+export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   let article = null;
   const { data } = await supabase.from('articles').select('*').eq('slug', slug).single();
@@ -54,7 +54,7 @@ export default async function ArticleDetailPage({ params }) {
         )}
 
         <div className="markdown-content" style={{ whiteSpace: 'pre-wrap', color: 'var(--text-secondary)', fontSize: '1.125rem', lineHeight: '1.8' }}>
-          {article.content.split('\n').map((line, i) => {
+          {article.content.split('\n').map((line: string, i: number) => {
             if (line.startsWith('## ')) return <h2 key={i} style={{ color: 'var(--text-primary)', marginTop: '3rem', marginBottom: '1.5rem', fontSize: '2rem' }}>{line.replace('## ', '')}</h2>;
             if (line.trim() === '') return <br key={i} />;
             return <p key={i} style={{ marginBottom: '1.5rem' }}>{line}</p>;

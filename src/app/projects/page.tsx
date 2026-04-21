@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import styles from './page.module.css';
 import Link from 'next/link';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, GitBranch } from 'lucide-react';
 
 export default async function ProjectsPage() {
   const { data: projects } = await supabase
@@ -35,7 +35,7 @@ export default async function ProjectsPage() {
               <div className={styles.cardLinks}>
                 {p.github_link && (
                   <a href={p.github_link} target="_blank" rel="noreferrer" className={styles.iconLink}>
-                    <Github size={20} />
+                    <GitBranch size={20} />
                   </a>
                 )}
                 {p.link && (
